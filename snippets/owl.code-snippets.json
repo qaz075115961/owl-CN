@@ -1,0 +1,934 @@
+{
+	
+    "工坊_变量": {
+        "prefix": [
+			"bianliang",
+			"liang",
+			"变量",
+			"量"
+		],
+        "body": [
+            "变量",
+			"{",
+			"    全局:",
+			"        0: A",
+			"",
+			"    玩家:",
+			"        0: A",
+			"}"
+        ],
+        "description": "储存变量的编号和名称。"
+    },
+    "工坊_子程序": {
+        "prefix": [
+			"zichengxu",
+			"chengxu",
+			"xu",
+			"子程序",
+			"程序",
+			"序"
+		],
+        "body": [
+            "子程序",
+			"{",
+			"    0: Sub0",
+			"}"
+        ],
+        "description": "储存子程序的编号和名称。"
+    },
+
+	
+	"创建规则_全局": {
+		"prefix": [
+			"guize",
+			"ze",
+			"规则",
+			"则"
+		],
+		"body": [
+            "规则(\"规则\")",
+            "{",
+            "    事件",
+            "    {",
+            "        持续 - 全局;",
+            "    }",
+            "",
+            "    条件",
+            "    {",
+            "        ",
+            "    }",
+            "",
+            "    动作",
+            "    {",
+            "        ",
+            "    }",
+            "}",
+            ""
+		],
+		"description": ""
+	},
+	"创建规则_玩家": {
+		"prefix": [
+			"guize",
+			"ze",
+			"规则",
+			"则"
+		],
+		"body": [
+            "规则(\"规则\")",
+            "{",
+            "    事件",
+            "    {",
+            "        持续 - 每名玩家;//事件",
+            "        双方;//队伍",
+            "        全部;//栏位",
+            "    }",
+            "",
+            "    条件",
+            "    {",
+            "        ",
+            "    }",
+            "",
+            "    动作",
+            "    {",
+            "        ",
+            "    }",
+            "}",
+            ""
+		],
+		"description": ""
+	},
+    "创建规则_子程序": {
+        "prefix": [
+			"guize",
+			"ze",
+			"规则",
+			"则"
+		],
+        "body": [
+            "规则(\"规则\")",
+            "{",
+            "    事件",
+            "    {",
+            "        子程序;",
+            "        Sub0;",
+            "    }",
+            "",
+            "    动作",
+            "    {",
+            "        ",
+            "    }",
+            "}",
+            ""
+        ],
+        "description": "创建一个符合规则的子程序"
+    },
+
+	
+    "规则_事件": {
+        "prefix": [
+			"shijian",
+			"jian",
+			"事件",
+			"件"
+		],
+        "body": [
+            "${1|持续 - 全局,持续 - 每名玩家,玩家造成伤害,玩家受到伤害,玩家造成治疗,玩家受到治疗,玩家造成击退,玩家受到击退,玩家造成最后一击,玩家阵亡,玩家参与消灭,玩家加入比赛,玩家离开比赛,子程序|};"
+        ],
+        "description": ""
+    },
+    "规则_队伍": {
+        "prefix": [
+			"duiwu",
+			"wu",
+			"队伍",
+			"伍"
+		],
+        "body": [
+            "${1|双方,队伍1,队伍2|};"
+        ],
+        "description": ""
+    },
+    "规则_栏位": {
+        "prefix": [
+			"lanwei",
+			"wei",
+			"栏位",
+			"位"
+		],
+        "body": [
+            "${1|全部,栏位0,栏位1,栏位2,栏位3,栏位4,栏位5,栏位6,栏位7,栏位8,栏位9,栏位10,栏位11,死神,猎空,天使,半藏,托比昂,莱因哈特,法老之鹰,温斯顿,黑百合,堡垒,秩序之光,禅雅塔,源氏,路霸,卡西迪,狂鼠,查莉娅,士兵：76,卢西奥,D.Va,美,黑影,末日铁拳,安娜,奥丽莎,布丽吉塔,莫伊拉,破坏球,索杰恩,艾什,回声,巴蒂斯特,雾子,渣客女王,西格玛,拉玛刹|};"
+        ],
+        "description": ""
+    },
+    "规则_条件": {
+        "prefix": [
+			"tiaojian",
+			"jian",
+			"条件",
+			"件"
+		],
+        "body": [
+            "条件",
+            "{",
+            "    $0",
+            "}"
+        ],
+        "description": ""
+    },
+    "规则_动作": {
+        "prefix": [
+			"dongzuo",
+			"zuo",
+			"动作",
+			"作"
+		],
+        "body": [
+            "动作",
+            "{",
+            "    $0",
+            "}"
+        ],
+        "description": ""
+    },
+    "规则_事件_子程序": {
+        "prefix": [
+			"zichengxu",
+			"chengxu",
+			"xu",
+			"子程序",
+			"程序",
+			"序"
+		],
+        "body": [
+            "子程序;"
+        ],
+        "description": ""
+    },
+    "规则_事件_持续 - 全局": {
+        "prefix": [
+			"chixuquanju",
+			"xuquanju",
+			"quanju",
+			"ju",
+			"持续全局",
+			"续全局",
+			"全局",
+			"局"
+		],
+        "body": [
+            "持续 - 全局;"
+        ],
+        "description": ""
+    },
+	"规则_事件_持续 - 每名玩家": {
+		"prefix": [
+			"chixumeimingwanjia",
+			"xumeimingwanjia",
+			"meimingwanjia",
+			"mingwanjia",
+			"wanjia",
+			"jia",
+			"持续每名玩家",
+			"续每名玩家",
+			"每名玩家",
+			"名玩家",
+			"玩家",
+			"家"
+		],
+		"body": [
+			"持续 - 每名玩家;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家造成伤害": {
+		"prefix": [
+			"wanjiazaochengshanghai",
+			"jiazaochengshanghai",
+			"zaochengshanghai",
+			"chengshanghai",
+			"shanghai",
+			"hai",
+			"玩家造成伤害",
+			"家造成伤害",
+			"造成伤害",
+			"成伤害",
+			"伤害",
+			"害"
+		],
+		"body": [
+			"玩家造成伤害;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家受到伤害": {
+		"prefix": [
+			"wanjiashoudaoshanghai",
+			"jiashoudaoshanghai",
+			"shoudaoshanghai",
+			"daoshanghai",
+			"shanghai",
+			"hai",
+			"玩家受到伤害",
+			"家受到伤害",
+			"受到伤害",
+			"到伤害",
+			"伤害",
+			"害"
+		],
+		"body": [
+			"玩家受到伤害;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家造成治疗": {
+		"prefix": [
+			"wanjiazaochengzhiliao",
+			"jiazaochengzhiliao",
+			"zaochengzhiliao",
+			"chengzhiliao",
+			"zhiliao",
+			"liao",
+			"玩家造成治疗",
+			"家造成治疗",
+			"造成治疗",
+			"成治疗",
+			"治疗",
+			"疗"
+		],
+		"body": [
+			"玩家造成治疗;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家受到治疗": {
+		"prefix": [
+			"wanjiashoudaozhiliao",
+			"jiashoudaozhiliao",
+			"shoudaozhiliao",
+			"daozhiliao",
+			"zhiliao",
+			"liao",
+			"玩家受到治疗",
+			"家受到治疗",
+			"受到治疗",
+			"到治疗",
+			"治疗",
+			"疗"
+		],
+		"body": [
+			"玩家受到治疗;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家造成击退": {
+		"prefix": [
+			"wanjiazaochengjitui",
+			"jiazaochengjitui",
+			"zaochengjitui",
+			"chengjitui",
+			"jitui",
+			"tui",
+			"玩家造成击退",
+			"家造成击退",
+			"造成击退",
+			"成击退",
+			"击退",
+			"退"
+		],
+		"body": [
+			"玩家造成击退;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家受到击退": {
+		"prefix": [
+			"wanjiashoudaojitui",
+			"jiashoudaojitui",
+			"shoudaojitui",
+			"daojitui",
+			"jitui",
+			"tui",
+			"玩家受到击退",
+			"家受到击退",
+			"受到击退",
+			"到击退",
+			"击退",
+			"退"
+		],
+		"body": [
+			"玩家受到击退;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家造成最后一击": {
+		"prefix": [
+			"wanjiazaochengzuihouyiji",
+			"jiazaochengzuihouyiji",
+			"zaochengzuihouyiji",
+			"chengzuihouyiji",
+			"zuihouyiji",
+			"houyiji",
+			"yiji",
+			"ji",
+			"玩家造成最后一击",
+			"家造成最后一击",
+			"造成最后一击",
+			"成最后一击",
+			"最后一击",
+			"后一击",
+			"一击",
+			"击"
+		],
+		"body": [
+			"玩家造成最后一击;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家阵亡": {
+		"prefix": [
+			"wanjiazhenwang",
+			"jiazhenwang",
+			"zhenwang",
+			"wang",
+			"玩家阵亡",
+			"家阵亡",
+			"阵亡",
+			"亡"
+		],
+		"body": [
+			"玩家阵亡;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家参与消灭": {
+		"prefix": [
+			"wanjiacanyuxiaomie",
+			"jiacanyuxiaomie",
+			"canyuxiaomie",
+			"yuxiaomie",
+			"xiaomie",
+			"mie",
+			"玩家参与消灭",
+			"家参与消灭",
+			"参与消灭",
+			"与消灭",
+			"消灭",
+			"灭"
+		],
+		"body": [
+			"玩家参与消灭;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家加入比赛": {
+		"prefix": [
+			"wanjiajiarubisai",
+			"jiajiarubisai",
+			"jiarubisai",
+			"rubisai",
+			"bisai",
+			"sai",
+			"玩家加入比赛",
+			"家加入比赛",
+			"加入比赛",
+			"入比赛",
+			"比赛",
+			"赛"
+		],
+		"body": [
+			"玩家加入比赛;"
+		],
+		"description": ""
+	},
+	"规则_事件_玩家离开比赛": {
+		"prefix": [
+			"wanjialikaibisai",
+			"jialikaibisai",
+			"likaibisai",
+			"kaibisai",
+			"bisai",
+			"sai",
+			"玩家离开比赛",
+			"家离开比赛",
+			"离开比赛",
+			"开比赛",
+			"比赛",
+			"赛"
+		],
+		"body": [
+			"玩家离开比赛;"
+		],
+		"description": ""
+	},
+    "规则_队伍_双方": {
+        "prefix": [
+			"shuangfang",
+			"fang",
+			"双方",
+			"方"
+		],
+        "body": [
+            "双方"
+        ],
+        "description": ""
+    },
+    "规则_栏位_全部": {
+        "prefix": [
+			"quanbu",
+			"bu",
+			"全部",
+			"部"
+		],
+        "body": [
+            "全部"
+        ],
+        "description": ""
+    },
+	
+	
+    "等待": {
+        "prefix": [
+			"dengdai",
+			"dai",
+			"等待",
+			"待"
+		],
+        "body": [
+            "等待(0.250, ${1|无视条件,当为“假”时中止,当为“真”时重新开始|});"
+        ],
+        "description": "暂停执行行动列表，除非等待被中断, 否则剩余行动都将在等待时间之后执行。"
+    },
+    "等待直到": {
+        "prefix": [
+			"dengdaizhidao",
+			"daizhidao",
+			"zhidao",
+			"dao",
+			"等待直到",
+			"待直到",
+			"直到",
+			"到"
+		],
+        "body": [
+            "等待直到 (假, 99999);"
+        ],
+        "description": "持续等待,直到“继续条件”为“真”，或达到“超时”的秒数时限。(在此等待过程中，忽略规则的条件。)"
+    },
+    "跳过": {
+        "prefix": [
+			"tiaoguo",
+			"guo",
+			"跳过",
+			"过"
+		],
+        "body": [
+            "跳过(1);"
+        ],
+        "description": "跳过动作列表中一定条数的动作。禁用的动作也要算入。"
+    },
+    "根据条件跳过": {
+        "prefix": [
+			"genjutiaojiantiaoguo",
+			"jutiaojiantiaoguo",
+			"tiaojiantiaoguo",
+			"jiantiaoguo",
+			"tiaoguo",
+			"guo",
+			"根据条件跳过",
+			"据条件跳过",
+			"条件跳过",
+			"件跳过",
+			"跳过",
+			"过"
+		],
+        "body": [
+            "根据条件跳过(0 == 0, 1);"
+        ],
+        "description": "如果此动作的条件为”真”。则跳过动怍列表中一定条数的动作。否则,则继续执行下一条动作。"
+    },
+    "中止": {
+        "prefix": [
+			"zhongzhi",
+			"zhi",
+			"中止",
+			"止"
+		],
+        "body": [
+            "中止;"
+        ],
+        "description": "停止执行动作列表。"
+    },
+    "如条件为“假”则中止": {
+        "prefix": [
+			"rutiaojianweijiazezhongzhi",
+			"tiaojianweijiazezhongzhi",
+			"jianweijiazezhongzhi",
+			"weijiazezhongzhi",
+			"jiazezhongzhi",
+			"zezhongzhi",
+			"zhongzhi",
+			"zhi",
+			"如条件为假则中止",
+			"条件为假则中止",
+			"件为假则中止",
+			"为假则中止",
+			"假则中止",
+			"则中止",
+			"中止",
+			"止"
+		],
+        "body": [
+            "如条件为“假”则中止;"
+        ],
+        "description": "如果条件列表中至少有一项条件为“假”，则停止执行动作列表。如果所有条件均为”真,则继续执行下一条动作。"
+    },
+    "如条件为“真”则中止": {
+        "prefix": [
+			"rutiaojianweizhenzezhongzhi",
+			"tiaojianweizhenzezhongzhi",
+			"jianweizhenzezhongzhi",
+			"weizhenzezhongzhi",
+			"zhenzezhongzhi",
+			"zezhongzhi",
+			"zhongzhi",
+			"zhi",
+			"如条件为真则中止",
+			"条件为真则中止",
+			"件为真则中止",
+			"为真则中止",
+			"真则中止",
+			"则中止",
+			"中止",
+			"止"
+		],
+        "body": [
+            "如条件为“真”则中止;"
+        ],
+        "description": "如果条件列表中所有条件均为”真”，则停止执行动作列表。如果有任何一条为“假”，则继续执行下一条动作。"
+    },
+    "根据条件中止": {
+        "prefix": [
+			"genjutiaojianzhongzhi",
+			"jutiaojianzhongzhi",
+			"tiaojianzhongzhi",
+			"jianzhongzhi",
+			"zhongzhi",
+			"zhi",
+			"根据条件中止",
+			"据条件中止",
+			"条件中止",
+			"件中止",
+			"中止",
+			"止"
+		],
+        "body": [
+            "根据条件中止(0 == 0);"
+        ],
+        "description": "如果此动作的条件为“真“，则停止执行动作列表。否则，则继续执行下一条动作。"
+    },
+    "循环": {
+        "prefix": [
+			"xunhuan",
+			"huan",
+			"循环",
+			"环"
+		],
+        "body": [
+            "循环;"
+        ],
+        "description": "从头开始执行动作列表。"
+    },
+    "中断": {
+        "prefix": [
+			"zhongduan",
+			"duan",
+			"中断",
+			"断"
+		],
+        "body": [
+            "中断;"
+        ],
+        "description": "表示一个中止当前While或For循环的动作。跳至End动作后的下一个动作继续执行。"
+    },
+    "继续": {
+        "prefix": [
+			"jixu",
+			"xu",
+			"继续",
+			"继续"
+		],
+        "body": [
+            "继续;"
+        ],
+        "description": "表示一个跳至当前While或For循环起始处继续执行的动作。"
+    },
+    "如条件为“假”则循环": {
+        "prefix": [
+			"rutiaojianweijiazexunhuan",
+			"tiaojianweijiazexunhuan",
+			"jianweijiazexunhuan",
+			"nweijiazexunhuan",
+			"jiazexunhuan",
+			"zexunhuan",
+			"xunhuan",
+			"huan",
+			"如条件为假则循环",
+			"条件为假则循环",
+			"件为假则循环",
+			"为假则循环",
+			"假则循环",
+			"则循环",
+			"循环",
+			"环"
+		],
+        "body": [
+            "如条件为“假”则循环;"
+        ],
+        "description": "如果条件列表中至少有一项条件为“假”，则从头开始执行动作列表。如果所有条件均为“真”，则执行下一项动作。"
+    },
+    "如条件为“真”则循环": {
+        "prefix": [
+			"rutiaojianweizhenzexunhuan",
+			"tiaojianweizhenzexunhuan",
+			"jianweizhenzexunhuan",
+			"nweizhenzexunhuan",
+			"zhenzexunhuan",
+			"zexunhuan",
+			"xunhuan",
+			"huan",
+			"如条件为真则循环",
+			"条件为真则循环",
+			"件为真则循环",
+			"为真则循环",
+			"真则循环",
+			"则循环",
+			"循环",
+			"环"
+		],
+        "body": [
+            "如条件为“真”则循环;"
+        ],
+        "description": "如果条件列表中的每一项条件均为“真”，则从头开始执行动作列表。如果任意一项为“假”，则执行下一项动作。"
+    },
+    "根据条件循环": {
+        "prefix": [
+			"genjutiaojianxunhuan",
+			"jutiaojianxunhuan",
+			"tiaojianxunhuan",
+			"jianxunhuan",
+			"xunhuan",
+			"huan",
+			"根据条件循环",
+			"据条件循环",
+			"条件循环",
+			"件循环",
+			"循环",
+			"环"
+		],
+        "body": [
+            "根据条件循环(0 == 0);"
+        ],
+        "description": "如果此动作的条件为”真”，则从头开始动作列表。否则,继续执行下一条动作。"
+    },
+    "调用子程序": {
+        "prefix": [
+			"diaoyongzichengxu",
+			"yongzichengxu",
+			"zichengxu",
+			"chengxu",
+			"xu",
+			"调用子程序",
+			"用子程序",
+			"子程序",
+			"程序",
+			"序"
+		],
+        "body": [
+            "调用子程序(Sub0);"
+        ],
+        "description": "暂停执行当前规则，并开始执行子程序规则(事件类型为”子程序“的规则)。当子程序规则结束时，原来的规则将恢复执行。子程序可以使用同样的情景变量(如事件玩家)的原始值。"
+    },
+    "开始规则": {
+        "prefix": [
+			"kaishiguize",
+			"shiguize",
+			"guize",
+			"ze",
+			"开始规则",
+			"始规则",
+			"规则",
+			"则"
+		],
+        "body": [
+            "开始规则(Sub0, ${1|重新开始规则,无动作|});"
+        ],
+        "description": "开始执行一串子规则，与调用子程序动作不同指出在于，原始规则会立即继续执行，而子程序规则会稍后执行（若在原始规则之下，则为同帧执行；若在原始规则之上，则为下一帧执行）。和调用子程序一样，子程序规则会复制事件玩家、攻击者、被攻击者等环境值。重新开始规则：以新的环境变量赋值，并重新开始执行子规则，无论当前子规则是否正在执行。无动作：若当前子规则没有正在执行，则开始执行子规则"
+    },
+	
+
+    "为玩家添加生命池": {
+        "prefix": [
+            "weiwanjiatianjiashengmingchi",
+            "wanjiatianjiashengmingchi",
+            "jiatianjiashengmingchi",
+            "tianjiashengmingchi",
+            "jiashengmingchi",
+            "shengmingchi",
+            "mingchi",
+            "chi",
+            "为玩家添加生命池",
+            "玩家添加生命池",
+            "家添加生命池",
+            "添加生命池",
+            "加生命池",
+            "生命池",
+            "命池",
+            "池"
+        ],
+        "body": [
+            "为玩家添加生命池(事件玩家, ${1|护甲,护盾,生命值|}, 100, 真, 真);"
+        ],
+        "description": "为一名或多名玩家添加临时的生命池。如果要指定此生命池,可以使用“上一个创建的生命池”值。同一名玩家身上任意一个生命值类型(生命.护甲或护盾)的生命池最多可以存在16个(包括基本生命池和由技能获得的生命池)。"
+    },
+    "移除玩家的生命池": {
+        "prefix": [
+            "yichuwanjiadeshengmingchi",
+            "chuwanjiadeshengmingchi",
+            "wanjiadeshengmingchi",
+            "jiadeshengmingchi",
+            "deshengmingchi",
+            "shengmingchi",
+            "mingchi",
+            "chi",
+            "移除玩家的生命池",
+            "除玩家的生命池",
+            "玩家的生命池",
+            "家的生命池",
+            "的生命池",
+            "生命池",
+            "命池",
+            "池"
+        ],
+        "body": [
+            "移除玩家的生命池(最后创建的生命池);"
+        ],
+        "description": "移除由“添加生命池”行动添加的一个生命池。"
+    },
+    "移除玩家的所有生命值": {
+        "prefix": [
+            "yichuwanjiadesuoyoushengmingzhi",
+            "chuwanjiadesuoyoushengmingzhi",
+            "wanjiadesuoyoushengmingzhi",
+            "jiadesuoyoushengmingzhi",
+            "desuoyoushengmingzhi",
+            "suoyoushengmingzhi",
+            "youshengmingzhi",
+            "shengmingzhi",
+            "mingzhi",
+            "zhi",
+            "移除玩家的所有生命值",
+            "除玩家的所有生命值",
+            "玩家的所有生命值",
+            "家的所有生命值",
+            "的所有生命值",
+            "所有生命值",
+            "有生命值",
+            "生命值",
+            "命值",
+            "值"
+        ],
+        "body": [
+            "移除玩家的所有生命值(事件玩家);"
+        ],
+        "description": "移除由“添加生命池”行动添加的所有生命池。"
+    },
+    "开始伤害调整": {
+        "prefix": [
+            "kaishishanghaitiaozheng",
+            "开始伤害调整"
+        ],
+        "body": [
+            "开始伤害调整(事件玩家, 所有玩家(所有队伍), 100, 受伤害者，伤害者及伤害百分比);"
+        ],
+        "description": "开始调整一名或多名受伤害者从一个或多个伤害者受到的伤害。如果想指定此伤害调整，可以使用“上一个伤害调整ID“的值。如果已经开始了太多的伤害调整，此动作可能会失败。"
+    },
+    "停止伤害调整": {
+        "prefix": [
+            "tingzhishanghaitiaozheng",
+            "停止伤害调整"
+        ],
+        "body": [
+            "停止伤害调整(上一个伤害调整ID);"
+        ],
+        "description": "停止由“开始伤害调整”动作启动的一个伤害调整。"
+    },
+    "停止所有伤害调整": {
+        "prefix": [
+            "tingzhisuoyoushanghaitiaozheng",
+            "停止所有伤害调整"
+        ],
+        "body": [
+            "停止所有伤害调整"
+        ],
+        "description": "停止所有由“开始伤害调整”动作启动的伤害调整。"
+    },
+
+
+
+    "队伍": {
+        "prefix": [
+			"suoyouduiwu",
+			"youduiwu",
+			"duiwu",
+			"wu",
+			"所有队伍",
+			"有队伍",
+			"队伍",
+			"伍"
+		],
+        "body": [
+            "${1|队伍1,队伍2,所有队伍|}"
+        ],
+        "description": ""
+    },
+    "事件玩家": {
+		"prefix": [
+			"shijianwanjia",
+			"jianwanjia",
+			"wanjia",
+			"jia",
+			"事件玩家",
+			"件玩家",
+			"玩家",
+			"家"
+		],
+		"body": [
+			"事件玩家"
+		],
+		"description": ""
+	},
+	"本地玩家": {
+		"prefix": [
+			"bendiwanjia",
+			"diwanjia",
+			"wanjia",
+			"jia",
+			"本地玩家",
+			"地玩家",
+			"玩家",
+			"家"
+		],
+		"body": [
+			"本地玩家"
+		],
+		"description": "仅能用于文本类动作中"
+	}
+
+
+
+
+
+
+
+}

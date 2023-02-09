@@ -1,0 +1,44 @@
+{
+  "name": "owl",
+  "displayName": "owl-CN",
+  "description": "守望先锋地图工坊的编程语言辅助插件",
+  "publisher": "CoolP",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/qaz075115961/owl-CN"
+	},
+	"icon": "images/owl-CN.png",
+	"keywords": [
+		"owl",
+		"overwatch",
+		"workshop"
+	],
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./client/extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "owl",
+      "aliases": ["Overwatch Workshop Language CN", "owl"],
+      "extensions": [".owl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "owl",
+      "scopeName": "source.owl",
+      "path": "./syntaxes/owl.tmLanguage.json"
+    }],
+    "themes": [
+      {
+        "label": "owl dark theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/owl dark theme-color-theme.json"
+      }
+    ]
+  }
+}
