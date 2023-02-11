@@ -9080,11 +9080,11 @@ const Pinyin = {
 
 //-------------------------------------------------  -------------------------------------------------
 //--------------------------------- 信息整合 ---------------------------------
-var constantsKeyword = {};
+var constantsKeywordObj = {};
 for (let i = 0; i < Object.keys(constants).length; i++) {
-    Object.assign(constantsKeyword, constants[Object.keys(constants)[i]]);
+    Object.assign(constantsKeywordObj, constants[Object.keys(constants)[i]]);
 }
-const constKeyList   = Object.keys(constantsKeyword);
+const constKeyList   = Object.keys(constantsKeywordObj);
 
 const keywordObj = Object.assign({}, actions, variables, IDs, boolean, numbers, others, players, vectors, angles, arrays, strings, colors);
 const keyList   = Object.keys(keywordObj);
@@ -9092,7 +9092,7 @@ const keyList   = Object.keys(keywordObj);
 
 //------------------- 完整的动作参考,补全的默认值 -------------------
 var referInfo = {};
-Object.assign(referInfo, constantsKeyword);
+Object.assign(referInfo, constantsKeywordObj);
 Object.assign(referInfo, referInfoObj(keyList, keywordObj));
 
 //const referInfo = referInfoObj(keyList, keywordObj);
@@ -9131,9 +9131,8 @@ function buildReferInfo(argArray, objName) {//把动作名和参数默认值拼�
 //------------------------------------------------
 
 //------------------- 代码补全 -------------------
-// var compItemList = new vscode.CompletionList(CompItemList(keyList, keywordObj));
 const funcCompItemList = CompItemList(keyList, keywordObj);
-const constCompItemList = CompItemList(constKeyList, constantsKeyword);
+const constCompItemList = CompItemList(constKeyList, constantsKeywordObj);
 const compItemList = funcCompItemList.concat(constCompItemList);
 
 function CompItemList(keyList, obj) {
@@ -9209,8 +9208,9 @@ function buildPinyinInfo(str) {
 var hoverInfo = {};
 var constHoverInfo = {};
 for (let i = 0; i < constKeyList.length; i++) {
-    constHoverInfo[constKeyList[i]] = "```owl\n" + constKeyList[i] + "\n" + constantsKeyword[constKeyList[i]] + "\n```\n";
+    constHoverInfo[constKeyList[i]] = "```owl\n" + constKeyList[i] + "\n" + constantsKeywordObj[constKeyList[i]] + "\n```\n";
 }
+
 Object.assign(hoverInfo, constHoverInfo);
 
 Object.assign(hoverInfo, HoverObj(keyList, keywordObj));
@@ -9278,7 +9278,7 @@ function buildSigHelpInfo(obj, objName) {//返回参数指引的文本
                 argDescription += "\n\n可选参数：" + argStr;
                 argDescription = new vscode.MarkdownString(argDescription);
             }
-            console.log(objName + "的参数" + i + "的类型未定义")
+            //console.log(objName + "的参数" + i + "的类型未定义")
         }
         paramInfo.push(new vscode.ParameterInformation([sigStr.length, sigStr.length + argName.length], argDescription));
         sigStr += argName;
@@ -9329,6 +9329,9 @@ function buildArgInfoString(argType) {//返回可选参数和参数描述的文�
 
 
 
+function pp(string) {//Debug
+    console.log(string);
+}
 
 //console.log(str)
 
@@ -9339,6 +9342,7 @@ module.exports = {
     actions: actions,
     constants: constants,
     keywordObj: keywordObj,
+    constantsKeywordObj: constantsKeywordObj,
     compItemList: compItemList,
     hoverInfo: hoverInfo,
     sigHelpInfo: sigHelpInfo
