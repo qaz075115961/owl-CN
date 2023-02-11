@@ -446,7 +446,7 @@
 			}
 		},
 		{
-			"name": "效果",
+			"name": "各类效果",
 			"scope": [
 				"values.type.beamEffect.owl",
 				"values.type.effect.owl",
@@ -555,7 +555,7 @@
 		{
 			"name": "白色",
 			"scope": [
-				"access.color.white",
+				"access.color.white"
 			],
 			"settings": {
 				"foreground": "#ffffff"
@@ -564,7 +564,7 @@
 		{
 			"name": "黑色",
 			"scope": [
-				"access.color.black",
+				"access.color.black"
 			],
 			"settings": {
 				"foreground": "#000000"
@@ -573,7 +573,7 @@
 		{
 			"name": "水绿色",
 			"scope": [
-				"access.color.watergreen",
+				"access.color.watergreen"
 			],
 			"settings": {
 				"foreground": "#00eaea"
@@ -582,7 +582,7 @@
 		{
 			"name": "蓝色",
 			"scope": [
-				"access.color.blue",
+				"access.color.blue"
 			],
 			"settings": {
 				"foreground": "#26aaff"
@@ -591,7 +591,7 @@
 		{
 			"name": "灰色",
 			"scope": [
-				"access.color.grey",
+				"access.color.grey"
 			],
 			"settings": {
 				"foreground": "#7f7f7f"
@@ -600,7 +600,7 @@
 		{
 			"name": "绿色",
 			"scope": [
-				"access.color.green",
+				"access.color.green"
 			],
 			"settings": {
 				"foreground": "#45ff56"
@@ -609,7 +609,7 @@
 		{
 			"name": "灰绿色",
 			"scope": [
-				"access.color.greygreen",
+				"access.color.greygreen"
 			],
 			"settings": {
 				"foreground": "#a0e816"
@@ -618,7 +618,7 @@
 		{
 			"name": "橙色",
 			"scope": [
-				"access.color.orange",
+				"access.color.orange"
 			],
 			"settings": {
 				"foreground": "#ec9900"
@@ -627,7 +627,7 @@
 		{
 			"name": "亮紫色",
 			"scope": [
-				"access.color.lightpurple",
+				"access.color.lightpurple"
 			],
 			"settings": {
 				"foreground": "#a047c5"
@@ -636,7 +636,7 @@
 		{
 			"name": "红色",
 			"scope": [
-				"access.color.red",
+				"access.color.red"
 			],
 			"settings": {
 				"foreground": "#c8000d"
@@ -645,7 +645,7 @@
 		{
 			"name": "玫红",
 			"scope": [
-				"access.color.mred",
+				"access.color.mred"
 			],
 			"settings": {
 				"foreground": "#ff3291"
@@ -654,7 +654,7 @@
 		{
 			"name": "天蓝色",
 			"scope": [
-				"access.color.skyblue",
+				"access.color.skyblue"
 			],
 			"settings": {
 				"foreground": "#6cbef4"
@@ -663,7 +663,7 @@
 		{
 			"name": "青绿色",
 			"scope": [
-				"access.color.aquagreen",
+				"access.color.aquagreen"
 			],
 			"settings": {
 				"foreground": "#00e696"
@@ -672,7 +672,7 @@
 		{
 			"name": "紫色",
 			"scope": [
-				"access.color.purple",
+				"access.color.purple"
 			],
 			"settings": {
 				"foreground": "#6332ff"
@@ -681,14 +681,14 @@
 		{
 			"name": "黄色",
 			"scope": [
-				"access.color.yellow",
+				"access.color.yellow"
 			],
 			"settings": {
 				"foreground": "#ffff00"
 			}
 		},
 		{
-			"name": "自定义变量",
+			"name": "自定义变量名称",
 			"scope": [
 				"keyword.customVariable.owl"
 			],
