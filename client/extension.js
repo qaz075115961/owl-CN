@@ -129,7 +129,14 @@ function builConstKeywordInfo(doc, pos, keyword) {
     return constKeywordInfo;
 }
 
+//pp('规则("")'.search(/规则\("[\W\w]*"\)/g))
+
 function searchRuleName(str) {
+    let name = "⚠️未命名规则";
+    if (str.search(/规则\("[\W\w]*"\)/g) == -1) {
+        name = "⚠️无效的规则名";
+        return name;
+    }
     let array = [];
     for (let i = 0; i < str.length; i++) {
         if (str.slice(i, i+1) == '"') {
@@ -138,27 +145,36 @@ function searchRuleName(str) {
     }
     let startPos = array[0] + 1;
     let endPos = array[array.length - 1];
-    let name = str.slice(startPos, endPos);
+    if (endPos > startPos) {
+        name = str.slice(startPos, endPos);
+    }
     return name;
 }
 
 function searchEventType(document, lineIndex, forLimit) {
-    let type = "";
+    let type = "⚠️找不到事件类型，或空行太多";
     let i = lineIndex;
     for (; i < lineIndex + forLimit; i++) {
         if (document.lineAt(i).text.indexOf(";") != -1) {
             break;
         }
     }
-    type = document.lineAt(i).text;
+    let str = document.lineAt(i).text;
 
     let j = 0;
-    for (; j < type.length; j++) {
-        if (type.slice(j, j+1) != "\t") {
+    for (; j < str.length; j++) {
+        if (str.slice(j, j+1) != "\t") {
             break;
         }
     }
-    type = type.slice(j, type.length - 1);
+    str = str.slice(j, str.length - 1);
+    if (str in constants.事件 == false) {
+        type = "⚠️无效的事件类型";
+        return type;
+    }
+    if (str.length > 0) {
+        type = str;
+    }
     return type;
 }
 
