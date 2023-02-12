@@ -129,6 +129,39 @@ function builConstKeywordInfo(doc, pos, keyword) {
     return constKeywordInfo;
 }
 
+function searchRuleName(str) {
+    let array = [];
+    for (let i = 0; i < str.length; i++) {
+        if (str.slice(i, i+1) == '"') {
+            array.push(i);
+        }
+    }
+    let startPos = array[0] + 1;
+    let endPos = array[array.length - 1];
+    let name = str.slice(startPos, endPos);
+    return name;
+}
+
+function searchEventType(document, lineIndex, forLimit) {
+    let type = "";
+    let i = lineIndex;
+    for (; i < lineIndex + forLimit; i++) {
+        if (document.lineAt(i).text.indexOf(";") != -1) {
+            break;
+        }
+    }
+    type = document.lineAt(i).text;
+
+    let j = 0;
+    for (; j < type.length; j++) {
+        if (type.slice(j, j+1) != "\t") {
+            break;
+        }
+    }
+    type = type.slice(j, type.length - 1);
+    return type;
+}
+
 function activate(context) {
     vscode.window.showInformationMessage('owl插件已激活!');
 
@@ -186,6 +219,82 @@ function activate(context) {
         }
         
     }, ',', '(');
+
+    //---------------------------------------- 规则大纲 ----------------------------------------
+    vscode.languages.registerDocumentSymbolProvider("owl", {
+        provideDocumentSymbols(document, token) {
+            return new Promise((resolve, reject) => {
+                let symbolList = [];
+                let foldList = [symbolList];
+                let fold = true;
+                
+                for (let i = 0; i < document.lineCount; i++) {
+                    let line = document.lineAt(i);
+                    
+                    if (line.text.startsWith("规则")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            searchRuleName(line.text),
+                            searchEventType(document, i, 5),
+                            vscode.SymbolKind.Interface,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                    }
+
+                    else if (line.text.startsWith("禁用 规则")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            "❌ " + searchRuleName(line.text),
+                            searchEventType(document, i, 5),
+                            vscode.SymbolKind.Interface,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                    }
+
+                    else if (line.text.startsWith("}")) { 
+                        if (!fold) {
+                            foldList.pop();
+                            fold = true;
+                        }
+                    }
+/* 
+                    else if (line.text.startsWith("	事件")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            searchEventType(document, i, 3),
+                            "",
+                            vscode.SymbolKind.Enum,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                    } 
+ */
+                }
+                resolve(symbolList);
+            });
+        }
+    })
+
 
 }
 
