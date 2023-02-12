@@ -272,6 +272,7 @@ function activate(context) {
                         }
                     }
 /* 
+
                     else if (line.text.startsWith("	事件")) {
                         let symbol = new vscode.DocumentSymbol(
                             searchEventType(document, i, 3),
