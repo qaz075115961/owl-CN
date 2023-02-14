@@ -7,13 +7,19 @@ const actions           = owl.actions;
 const keywordObj           = owl.keywordObj;
 const constantsKeywordObj           = owl.constantsKeywordObj;
 const constants             = owl.constants;
-const compItemList      = owl.compItemList;
+const format             = owl.format;
+var compItemList      = owl.compItemList;
+const constCompItemList      = owl.constCompItemList;
 const hoverInfo         = owl.hoverInfo;
 const sigHelpInfo       = owl.sigHelpInfo;
+
 
 const brackets_Left     = ["(", "[", "{"];
 const brackets_right    = [")", "]", "}"];
 const quotes            = ["\"", "'", "`"];
+const specialKeyword    = ["持续", "全局", "每名玩家", "-"]
+
+var rulesCount = 0;
 
 function detectKeyword(doc, pos) {
     let isInString = false;//用于判断是否检测到了字符串
@@ -105,7 +111,7 @@ function argRemind(doc, pos) {
     }
 
     let argType = arg.类型;
-    let newList = compItemList.filter(item => Object.keys(constants[argType]).indexOf(item.label) != -1);
+    let newList = constCompItemList.filter(item => Object.keys(constants[argType]).indexOf(item.label) != -1);
     return newList;
 }
 
@@ -116,20 +122,27 @@ function builConstKeywordInfo(doc, pos, keyword) {
         let funcName = result[0];
         let currentArgIndex = result[1];
         let type = keywordObj[funcName].参数[currentArgIndex].类型;
+        if (type == "0000000") {
+            pp("悬停信息：类型为占位符");
+            return "";
+        }
         let otherOptionObj = constants[type];
         let otherOptionList = Object.keys(otherOptionObj);
         constKeywordInfo = "此处还可以选择：\n\n";
         for (let i = 0; i < otherOptionList.length; i++) {
             if (otherOptionList[i] != keyword) {
-                constKeywordInfo += "`" + otherOptionList[i] + "`: " + otherOptionObj[otherOptionList[i]] + "\n\n";
+                constKeywordInfo += "`" + otherOptionList[i] + "`";
+                let description = otherOptionObj[otherOptionList[i]];
+                if (description != "") {
+                    constKeywordInfo += ": " + otherOptionObj[otherOptionList[i]];
+                }
+                constKeywordInfo += "\n\n";
             }
         }
     }
     pp("悬停信息：" + result);
     return constKeywordInfo;
 }
-
-//pp('规则("")'.search(/规则\("[\W\w]*"\)/g))
 
 function searchRuleName(str) {
     let name = "⚠️未命名规则";
@@ -178,6 +191,41 @@ function searchEventType(document, lineIndex, forLimit) {
     return type;
 }
 
+function buildFormatCompItem(obj) {
+    let list = [];
+    let keyList = Object.keys(obj);
+    pp(rulesCount)
+    for (let i = 0; i < keyList.length; i++) {
+        let keyName = keyList[i];
+        let text = obj[keyName].replace("%1$s", rulesCount + 1);
+
+        let item = new vscode.CompletionItem();
+        item.label = keyName + "(格式化)";
+        item.insertText = text;
+        item.filterText = owl.addSpaceBetweenChar(keyName) + owl.buildPinyinInfo(keyName);
+        item.documentation = new vscode.MarkdownString("```owl\n" + text + "\n```");
+        item.kind = vscode.CompletionItemKind.Class;
+        list.push(item);
+    }
+    return list;
+}
+
+function searchCompleteKeyword(doc, pos) {
+    let keyword = "🍀";
+    for (let i = 0; i < 9; i++) {
+        let char = doc.getText(new vscode.Range(pos.translate(0, i), pos.translate(0, i+1)));
+        if ("全局".indexOf(char) != -1) {
+            keyword = "持续 - 全局";
+            break;
+        }
+        else if ("每名玩家".indexOf(char) != -1) {
+            keyword = "持续 - 每名玩家";
+            break;
+        }
+    }
+    return keyword;
+}
+
 function activate(context) {
     vscode.window.showInformationMessage('owl插件已激活!');
 
@@ -186,7 +234,12 @@ function activate(context) {
         provideHover(document, position, token) {
             let constKeywordInfo = "";
             let keyword = document.getText(document.getWordRangeAtPosition(position));
+            if (specialKeyword.indexOf(keyword) != -1) {
+                keyword = searchCompleteKeyword(document, position);
+            }
+
             if (keyword in constantsKeywordObj) {
+                pp(keyword)
                 constKeywordInfo = builConstKeywordInfo(document, position, keyword);
             }
 
@@ -228,10 +281,13 @@ function activate(context) {
     vscode.languages.registerCompletionItemProvider("owl", {
         provideCompletionItems(document, position, token, context) {
             if (context.triggerCharacter == ',' || context.triggerCharacter == '(') {
-                let newList = argRemind(document, position)
+                let newList = argRemind(document, position);
                 return newList;
             }
-            return compItemList;
+
+            let formatCompItemList = buildFormatCompItem(format);
+            let list = compItemList.concat(formatCompItemList)
+            return list;
         }
         
     }, ',', '(');
@@ -243,6 +299,7 @@ function activate(context) {
                 let symbolList = [];
                 let foldList = [symbolList];
                 let fold = true;
+                let count = 0;
                 
                 for (let i = 0; i < document.lineCount; i++) {
                     let line = document.lineAt(i);
@@ -262,6 +319,7 @@ function activate(context) {
                             foldList.push(symbol.children);
                             fold = false;
                         }
+                        count += 1;
                     }
 
                     else if (line.text.startsWith("禁用 规则")) {
@@ -279,6 +337,7 @@ function activate(context) {
                             foldList.push(symbol.children);
                             fold = false;
                         }
+                        count += 1;
                     }
 
                     else if (line.text.startsWith("}")) { 
@@ -307,6 +366,7 @@ function activate(context) {
                     } 
  */
                 }
+                rulesCount = count;
                 resolve(symbolList);
             });
         }
