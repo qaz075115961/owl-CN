@@ -57,6 +57,7 @@ function detectKeyword(doc, pos) {
             }
         }
     }
+    // pp(nestLayers)
 
     //------------- 步骤2：检测 -------------
     if (isInString) {
@@ -80,18 +81,20 @@ function detectKeyword(doc, pos) {
         return err;
     }
 
-    return [funcName, currentArgIndex];
+    return [funcName, currentArgIndex, nestLayers];
 }
 
 function argRemind(doc, pos) {
     let result = detectKeyword(doc, pos);
     if (typeof result == "string") {
-        pp("代码补全：" + result);
+        pp("代码补全error：" + result);
         return;
     }
 
     let funcName = result[0];
     let currentArgIndex = result[1];
+    let nestLayers = result[2];
+    pp("嵌套层数：" + nestLayers)
 
     if (!funcName in keywordObj) {
         pp("列表中找不到" + funcName);
@@ -145,21 +148,18 @@ function builConstKeywordInfo(doc, pos, keyword) {
 }
 
 function searchRuleName(str) {
-    let name = "⚠️未命名规则";
+    let name = "";
+    if (str.search(/^(设置|变量|子程序)$/g) != -1) {
+        name = str.slice(0, str.length);
+        return name;
+    }
     if (str.search(/规则\("[\W\w]*"\)/g) == -1) {
         name = "⚠️无效的规则名";
         return name;
     }
-    let array = [];
-    for (let i = 0; i < str.length; i++) {
-        if (str.slice(i, i+1) == '"') {
-            array.push(i);
-        }
-    }
-    let startPos = array[0] + 1;
-    let endPos = array[array.length - 1];
-    if (endPos > startPos) {
-        name = str.slice(startPos, endPos);
+    name = str.replace(/(规则\("|"\))/g, "")
+    if (name.length == 0) {
+        name = "❔未命名规则";
     }
     return name;
 }
@@ -194,7 +194,6 @@ function searchEventType(document, lineIndex, forLimit) {
 function buildFormatCompItem(obj) {
     let list = [];
     let keyList = Object.keys(obj);
-    pp(rulesCount)
     for (let i = 0; i < keyList.length; i++) {
         let keyName = keyList[i];
         let text = obj[keyName].replace("%1$s", rulesCount + 1);
@@ -226,6 +225,24 @@ function searchCompleteKeyword(doc, pos) {
     return keyword;
 }
 
+function builSpecialKeywordInfo(keyword) {
+    let constKeywordInfo = "";
+    let otherOptionObj = constants["事件"];
+    let otherOptionList = Object.keys(otherOptionObj);
+    constKeywordInfo = "此处还可以选择：\n\n";
+    for (let i = 0; i < otherOptionList.length; i++) {
+        if (otherOptionList[i] != keyword) {
+            constKeywordInfo += "`" + otherOptionList[i] + "`";
+            let description = otherOptionObj[otherOptionList[i]];
+            if (description != "") {
+                constKeywordInfo += ": " + otherOptionObj[otherOptionList[i]];
+            }
+            constKeywordInfo += "\n\n";
+        }
+    }
+    return constKeywordInfo;
+}
+
 function activate(context) {
     vscode.window.showInformationMessage('owl插件已激活!');
 
@@ -234,12 +251,12 @@ function activate(context) {
         provideHover(document, position, token) {
             let constKeywordInfo = "";
             let keyword = document.getText(document.getWordRangeAtPosition(position));
-            if (specialKeyword.indexOf(keyword) != -1) {
+            let char = document.getText(new vscode.Range(position.translate(0, 1), position.translate(0, 4)));
+            if (specialKeyword.indexOf(keyword) != -1 && char.indexOf(".") == -1) {
                 keyword = searchCompleteKeyword(document, position);
+                constKeywordInfo = builSpecialKeywordInfo(keyword);
             }
-
-            if (keyword in constantsKeywordObj) {
-                pp(keyword)
+            else if (keyword in constantsKeywordObj) {
                 constKeywordInfo = builConstKeywordInfo(document, position, keyword);
             }
 
@@ -286,7 +303,7 @@ function activate(context) {
             }
 
             let formatCompItemList = buildFormatCompItem(format);
-            let list = compItemList.concat(formatCompItemList)
+            let list = compItemList.concat(formatCompItemList);
             return list;
         }
         
@@ -306,11 +323,11 @@ function activate(context) {
                     
                     if (line.text.startsWith("规则")) {
                         let symbol = new vscode.DocumentSymbol(
-                            searchRuleName(line.text),
-                            searchEventType(document, i, 5),
-                            vscode.SymbolKind.Interface,
-                            line.range,
-                            line.range
+                            searchRuleName(line.text), // 规则名称
+                            searchEventType(document, i, 5), // 事件类型
+                            vscode.SymbolKind.Interface, // 规则图标
+                            line.range, // ？
+                            line.range // ？
                         );
                         // symbolList.push(symbol);
 
@@ -327,6 +344,60 @@ function activate(context) {
                             "❌ " + searchRuleName(line.text),
                             searchEventType(document, i, 5),
                             vscode.SymbolKind.Interface,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                        count += 1;
+                    }
+                    
+                    else if (line.text.startsWith("子程序")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            searchRuleName(line.text),
+                            "",
+                            vscode.SymbolKind.Property,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                        count += 1;
+                    }
+                    
+                    else if (line.text.startsWith("变量")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            searchRuleName(line.text),
+                            "",
+                            vscode.SymbolKind.Property,
+                            line.range,
+                            line.range
+                        );
+                        // symbolList.push(symbol);
+
+                        foldList[foldList.length-1].push(symbol)
+                        if (fold) {
+                            foldList.push(symbol.children);
+                            fold = false;
+                        }
+                        count += 1;
+                    }
+                    
+                    else if (line.text.startsWith("设置")) {
+                        let symbol = new vscode.DocumentSymbol(
+                            searchRuleName(line.text),
+                            "",
+                            vscode.SymbolKind.Property,
                             line.range,
                             line.range
                         );

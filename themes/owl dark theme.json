@@ -356,7 +356,8 @@
 				"values.reevaluation.startFacing.owl",
 				"values.reevaluation.throttleInDirection.owl",
 				"values.reevaluation.accelerating.owl",
-				"values.reevaluation.chaseVariable.owl"
+				"values.reevaluation.chaseVariable.owl",
+				"values.reevaluation.projectile.owl"
 			],
 			"settings": {
 				"foreground": "#6e8ab4"
@@ -448,6 +449,7 @@
 		{
 			"name": "各类效果",
 			"scope": [
+				"values.type.ballistic.owl",
 				"values.type.beamEffect.owl",
 				"values.type.effect.owl",
 				"values.type.playEffect.owl",

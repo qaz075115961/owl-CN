@@ -53,26 +53,26 @@
 > 
 > (看不到图说明需要翻墙)
 > 
-> ![中文补全](images/1.gif)
+> ![中文补全](https://github.com/qaz075115961/owl-CN/raw/HEAD/images/1.gif)
 > 
-> ![拼音补全](images/2.gif)
+> ![拼音补全](https://github.com/qaz075115961/owl-CN/raw/HEAD/images/2.gif)
 
 
 ### ✔️悬停信息
 
 > 将鼠标悬停在动作或参数的关键词上，此插件会显示对应动作或参数的参考信息，例如动作的参数说明和可选的参数类型等。
 > 
-> ![悬停信息](images/3.gif)
+> ![悬停信息](https://github.com/qaz075115961/owl-CN/raw/HEAD/images/3.gif)
 
 ### ✔️参数指引
 
 > 在一个动作关键词后输入英文小括号“(”后，此规则会显示对应动作的参数说明；接着在括号中输入英文逗号“,”后，会显示下一个参数说明。
 > 
-> ![参数指引](images/4.gif)
+> ![参数指引](https://github.com/qaz075115961/owl-CN/raw/HEAD/images/4.gif)
 
 ### ✔️大纲
 
 > 可以通过***大纲***功能，查看所有创建的规则，并快速定位到指定的规则。大纲功能在“资源管理器”->“大纲”下。
 > 
-> ![大纲](images/5.png)
+> ![大纲](https://github.com/qaz075115961/owl-CN/raw/HEAD/images/5.png)
 

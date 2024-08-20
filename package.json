@@ -1,8 +1,8 @@
 {
-  "name": "owl",
-  "displayName": "owl-CN",
-  "description": "守望先锋地图工坊的编程语言辅助插件",
-  "publisher": "CoolP",
+	"name": "owl",
+	"displayName": "owl-CN",
+	"description": "守望先锋地图工坊的编程语言辅助插件",
+	"publisher": "CoolP",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/qaz075115961/owl-CN"
@@ -13,32 +13,54 @@
 		"overwatch",
 		"workshop"
 	],
-  "version": "0.0.9",
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "main": "./client/extension.js",
-  "contributes": {
-    "languages": [{
-      "id": "owl",
-      "aliases": ["Overwatch Workshop Language CN", "owl"],
-      "extensions": [".owl"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "owl",
-      "scopeName": "source.owl",
-      "path": "./syntaxes/owl.tmLanguage.json"
-    }],
-    "themes": [
-      {
-        "label": "owl dark theme",
-        "uiTheme": "vs-dark",
-        "path": "./themes/owl dark theme.json"
-      }
-    ]
-  }
+	"version": "0.0.15",
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"main": "./client/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "owl",
+				"aliases": [
+					"Overwatch Workshop Language CN",
+					"owl"
+				],
+				"extensions": [
+					".owl"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "owl",
+				"scopeName": "source.owl",
+				"path": "./syntaxes/owl.tmLanguage.json"
+			}
+		],
+		"themes": [
+			{
+				"label": "owl dark theme",
+				"uiTheme": "vs-dark",
+				"path": "./themes/owl dark theme.json"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "222a695f-d319-4df2-9549-cd68ff501d67",
+		"publisherId": "90f866fb-f20a-498d-b71a-08cdc7a8e86b",
+		"publisherDisplayName": "CoolP",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1724133700125,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery"
+	}
 }
