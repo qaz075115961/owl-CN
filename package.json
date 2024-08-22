@@ -4,7 +4,7 @@
 	"icon": "images/owl-CN.png",
 	"description": "守望先锋地图工坊的编程语言辅助插件",
 	"publisher": "CoolP",
-	"version": "0.0.17",
+	"version": "0.0.18",
 	"engines": {
 		"vscode": "^1.92.0"
 	},

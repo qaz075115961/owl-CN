@@ -157,7 +157,7 @@
 				},
 				{
 					"name": "values.status.owl",
-					"match": "\\b(沉睡|点燃|冰冻|被入侵|无敌|击倒|相移|定身|击晕|无法杀死)\\b"
+					"match": "\\b(沉睡|燃烧|冰冻|被入侵|无敌|击倒|相移|定身|击晕|无法杀死)\\b"
 				},
 				{
 					"name": "values.invisible.owl",
