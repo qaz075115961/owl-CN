@@ -885,6 +885,8 @@ const Pinyin = {
     "精" : "Jing",
     "炼" : "Lian",
     "场" : "Chang",
+    "冈" : "Gang",
+    "座" : "Zuo",
 }
 
 module.exports = {
