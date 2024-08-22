@@ -1,0 +1,96 @@
+{
+	"name": "owl",
+	"displayName": "owl-CN",
+	"icon": "images/owl-CN.png",
+	"description": "守望先锋地图工坊的编程语言辅助插件",
+	"publisher": "CoolP",
+	"version": "0.0.17",
+	"engines": {
+		"vscode": "^1.92.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/qaz075115961/owl-CN"
+	},
+	"keywords": [
+		"owl",
+		"overwatch",
+		"workshop"
+	],
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [],
+	"main": "./client/extension.js",
+	"browser": "./client/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "owl",
+				"aliases": [
+					"Overwatch Workshop Language CN",
+					"owl"
+				],
+				"extensions": [
+					".owl"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "owl",
+				"scopeName": "source.owl",
+				"path": "./syntaxes/owl.tmLanguage.json"
+			}
+		],
+		"themes": [
+			{
+				"label": "owl dark theme",
+				"uiTheme": "vs-dark",
+				"path": "./themes/owl dark theme.json"
+			}
+		]
+	},
+	"scripts": {
+		"test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
+		"pretest": "npm run compile-web",
+		"vscode:prepublish": "npm run package-web",
+		"compile-web": "webpack",
+		"watch-web": "webpack --watch",
+		"package-web": "webpack --mode production --devtool hidden-source-map",
+		"lint": "eslint src --ext ts",
+		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+		"open-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.92.0",
+		"@types/mocha": "^10.0.7",
+		"@types/assert": "^1.5.10",
+		"eslint": "^8.57.0",
+		"@typescript-eslint/eslint-plugin": "^7.14.1",
+		"@typescript-eslint/parser": "^7.11.0",
+		"mocha": "^10.5.2",
+		"typescript": "^5.4.5",
+		"@vscode/test-web": "^0.0.55",
+		"ts-loader": "^9.5.1",
+		"webpack": "^5.92.1",
+		"webpack-cli": "^5.1.4",
+		"@types/webpack-env": "^1.18.5",
+		"assert": "^2.1.0",
+		"process": "^0.11.10"
+	},
+	"__metadata": {
+		"id": "222a695f-d319-4df2-9549-cd68ff501d67",
+		"publisherId": "90f866fb-f20a-498d-b71a-08cdc7a8e86b",
+		"publisherDisplayName": "CoolP",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1724133700125,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery"
+	}
+}
