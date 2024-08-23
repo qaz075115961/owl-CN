@@ -2,18 +2,6 @@
 
 const vscode    = require('vscode');
 
-// const owl       = require("./owl.js");
-
-// const heroes            = owl.heroes;
-// const actions           = owl.actions;
-// const keywordObj           = owl.keywordObj;
-// const constantsKeywordObj           = owl.constantsKeywordObj;
-// const constants             = owl.constants;
-// const format             = owl.format;
-// var compItemList      = owl.compItemList;
-// const constCompItemList      = owl.constCompItemList;
-// const hoverInfo         = owl.hoverInfo;
-// const sigHelpInfo       = owl.sigHelpInfo;
 
 
 //#region 拼音字典
@@ -1020,6 +1008,12 @@ const actions = {
         ]
     },
     
+    "禁用 " : {
+        "描述" : "添加在规则或动作的开头，即可游戏中禁用。",
+        "返回" : "无",
+        "参数" : []
+    },
+
     "循环" : {
         "描述" : "从头开始执行动作列表。",
         "返回" : "无",
@@ -1064,7 +1058,7 @@ const actions = {
     },
     
     "调用子程序" : {
-        "描述" : "暂停执行当前规则，并开始执行子程序规则（事件类型为”子程序“的规则）。当子程序规则结束时，原来的规则将恢复执行。子程序可以使用同样的情景变量（如事件玩家）的原始值。",
+        "描述" : "暂停执行当前规则，并开始执行子程序规则（事件类型为“子程序”的规则）。当子程序规则结束时，原来的规则将恢复执行。子程序可以使用同样的情景变量（如事件玩家）的原始值。",
         "返回" : "无",
         "参数" : [
             {
@@ -1077,7 +1071,7 @@ const actions = {
     },
     
     "开始规则" : {
-        "描述" : "开始同时执行一个子程序规则（事件类型为”子程序“的规则）。原来规则的执行不会被打断。子程序可以使用同样的情景变量（如事件玩家）的原始值。",
+        "描述" : "开始同时执行一个子程序规则（事件类型为“子程序”的规则）。原来规则的执行不会被打断。子程序可以使用同样的情景变量（如事件玩家）的原始值。",
         "返回" : "无",
         "参数" : [
             {
@@ -1199,7 +1193,7 @@ const actions = {
                 "名称" : "伤害调整ID",
                 "类型" : "0000000",
                 "默认" : "上一个伤害调整ID",
-                "说明" : "指定要结束的伤害调整副本。此ID可以是”上一个伤害调整ID“，或一个之前储存”上一个伤害调整ID“的变量。"
+                "说明" : "指定要结束的伤害调整副本。此ID可以是“上一个伤害调整ID”，或一个之前储存“上一个伤害调整ID”的变量。"
             }
         ]
     },
@@ -1250,7 +1244,7 @@ const actions = {
                 "名称" : "治疗调整ID",
                 "类型" : "0000000",
                 "默认" : "上一个治疗调整ID",
-                "说明" : "指定要结束的治疗调整副本。此ID可以是”上一个治疗调整ID“，或一个之前储存”上一个治疗调整ID“的变量。"
+                "说明" : "指定要结束的治疗调整副本。此ID可以是“上一个治疗调整ID”，或一个之前储存“上一个治疗调整ID”的变量。"
             }
         ]
     },
@@ -1262,7 +1256,7 @@ const actions = {
     },
     
     "开始持续伤害" : {
-        "描述" : "开始一个持续伤害副本。此持续伤害会持续一段指定长度的时间，或直到被程序中止。如果想指定此持续伤害，可以使用”上一个持续伤害ID“的返还值。",
+        "描述" : "开始一个持续伤害副本。此持续伤害会持续一段指定长度的时间，或直到被程序中止。如果想指定此持续伤害，可以使用“上一个持续伤害ID”的返还值。",
         "返回" : "无",
         "参数" : [
             {
@@ -1293,14 +1287,14 @@ const actions = {
     },
     
     "停止持续伤害" : {
-        "描述" : "停止一个由”开始持续伤害“动作启动的持续伤害副本。",
+        "描述" : "停止一个由“开始持续伤害”动作启动的持续伤害副本。",
         "返回" : "无",
         "参数" : [
             {
                 "名称" : "持续伤害ID",
                 "类型" : "0000000",
                 "默认" : "上一个持续伤害效果ID",
-                "说明" : "指定要结束的持续伤害副本。此ID可以是”上一个持续伤害ID“，或一个之前储存”上一个持续伤害ID“的变量。"
+                "说明" : "指定要结束的持续伤害副本。此ID可以是“上一个持续伤害ID”，或一个之前储存“上一个持续伤害ID”的变量。"
             }
         ]
     },
@@ -1319,7 +1313,7 @@ const actions = {
     },
     
     "开始持续治疗" : {
-        "描述" : "开始一个持续治疗副本。此持续治疗会持续一段指定长度的时间，或直到被程序中止。如果想指定此持续治疗，可以使用”上一个持续治疗ID“的返还值。",
+        "描述" : "开始一个持续治疗副本。此持续治疗会持续一段指定长度的时间，或直到被程序中止。如果想指定此持续治疗，可以使用“上一个持续治疗ID”的返还值。",
         "返回" : "无",
         "参数" : [
             {
@@ -1350,14 +1344,14 @@ const actions = {
     },
     
     "停止持续治疗" : {
-        "描述" : "停止一个由”开始持续治疗“动作启动的持续治疗副本。",
+        "描述" : "停止一个由“开始持续治疗”动作启动的持续治疗副本。",
         "返回" : "无",
         "参数" : [
             {
                 "名称" : "持续治疗ID",
                 "类型" : "0000000",
                 "默认" : "上一个持续治疗效果ID",
-                "说明" : "指定要结束的持续治疗副本。此ID可以是”上一个持续治疗ID“，或一个之前储存”上一个持续治疗ID“的变量。"
+                "说明" : "指定要结束的持续治疗副本。此ID可以是“上一个持续治疗ID”，或一个之前储存“上一个持续治疗ID”的变量。"
             }
         ]
     },
@@ -1913,7 +1907,7 @@ const actions = {
     },
     
     "开始强制玩家选择英雄" : {
-        "描述" : "开始强制一名或多名玩家使用指定的英雄，如有必要，使这些玩家立即在当前位置复生。这名或这些玩家只能使用指定的英雄，直到执行”停止强制玩家选择英雄“动作为止。",
+        "描述" : "开始强制一名或多名玩家使用指定的英雄，如有必要，使这些玩家立即在当前位置复生。这名或这些玩家只能使用指定的英雄，直到执行“停止强制玩家选择英雄”动作为止。",
         "返回" : "无",
         "参数" : [
             {
@@ -2201,7 +2195,7 @@ const actions = {
     },
     
     "设置状态" : {
-        "描述" : "对一名或多名玩家施加一个状态。此状态会持续指定的”持续时间“，或直到被”清除状态“动作清除。",
+        "描述" : "对一名或多名玩家施加一个状态。此状态会持续指定的“持续时间”，或直到被“清除状态”动作清除。",
         "返回" : "无",
         "参数" : [
             {
@@ -2232,7 +2226,7 @@ const actions = {
     },
     
     "清除状态" : {
-        "描述" : "清除一个或多个玩家身上由”设置状态“动作施加的一个状态。",
+        "描述" : "清除一个或多个玩家身上由“设置状态”动作施加的一个状态。",
         "返回" : "无",
         "参数" : [
             {
@@ -4197,7 +4191,7 @@ const actions = {
     },
     
     "消除所有图标" : {
-        "描述" : "消除所有由”创建图标“所创建的图标实体。",
+        "描述" : "消除所有由“创建图标”所创建的图标实体。",
         "返回" : "无",
         "参数" : []
     },
@@ -4258,7 +4252,7 @@ const actions = {
     },
     
     "消除地图文本" : {
-        "描述" : "清除”创建地图文本“所创建的地图文本。",
+        "描述" : "清除“创建地图文本”所创建的地图文本。",
         "返回" : "无",
         "参数" : [
             {
@@ -4271,7 +4265,7 @@ const actions = {
     },
     
     "消除所有地图文本" : {
-        "描述" : "消除所有”创建地图文本“所创建的所有地图文本。",
+        "描述" : "消除所有“创建地图文本”所创建的所有地图文本。",
         "返回" : "无",
         "参数" : []
     },
@@ -4376,7 +4370,7 @@ const actions = {
     },
     
     "消除所有效果" : {
-        "描述" : "消除所有由”创建效果“或“创建光束效果”所创建的效果实体。",
+        "描述" : "消除所有由“创建效果”或“创建光束效果”所创建的效果实体。",
         "返回" : "无",
         "参数" : []
     },
@@ -4916,25 +4910,25 @@ const specialKeyword = {
 const IDs = {
     //----------------------------------------------
     "上一个伤害调整ID" : {
-        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的”开始伤害调整“动作。",
+        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的“开始伤害调整”动作。",
         "返回" : "伤害调整ID",
         "参数" : []
     },
 
     "上一个持续伤害效果ID" : {
-        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的”持续伤害“动作。",
+        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的“持续伤害”动作。",
         "返回" : "持续伤害效果ID",
         "参数" : []
     },
 
     "上一个治疗调整ID" : {
-        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的”开始治疗调整“动作。",
+        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的“开始治疗调整”动作。",
         "返回" : "治疗调整ID",
         "参数" : []
     },
 
     "上一个持续治疗效果ID" : {
-        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的”持续治疗“动作。",
+        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的“持续治疗”动作。",
         "返回" : "持续治疗效果ID",
         "参数" : []
     },
@@ -4958,7 +4952,7 @@ const IDs = {
     },
 
     "最后创建的生命池" : {
-        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的”添加生命池“动作。",
+        "描述" : "此ID值代表最后一个事件玩家（或全局）所执行的“添加生命池”动作。",
         "返回" : "生命池ID",
         "参数" : []
     },
@@ -6622,6 +6616,12 @@ const numbers = {
 };
 const others = {
     //----------------------------------------------
+    "全局" : {
+        "描述" : "",
+        "返回" : "无",
+        "参数" : []
+    },
+
     "按钮" : {
         "描述" : "一个按钮常量。",
         "返回" : "按钮",
@@ -9002,7 +9002,7 @@ const constants = {
     },
     
     "队伍" : {
-        "双方" : "",
+        "所有队伍" : "",
         "队伍1" : "",
         "队伍2" : ""
     },
@@ -9212,7 +9212,7 @@ const constants = {
         "“黑影”位移传动重现效果" : "",
         "“黑影”电磁脉冲爆炸效果" : "",
         "“秩序之光”传送面板重现效果" : "",
-        "”猎空“闪回消失效果" : "",
+        "“猎空”闪回消失效果" : "",
         "“猎空“闪回重现效果" : "",
         "查莉娅粒子炮爆炸效果" : ""
     },
@@ -9927,7 +9927,7 @@ const constants = {
 };
 
 const format = {
-    "规则 全局" : 
+    "规则：全局" : 
 `规则("规则%1$s")
 {
     事件
@@ -9947,7 +9947,29 @@ const format = {
 }
 `,
 
-    "规则子程序" : 
+    "规则：持续 - 每名玩家" : 
+`规则("规则%1$s")
+{
+    事件
+    {
+        持续 - 每名玩家;
+        双方;
+        全部;
+    }
+
+    条件
+    {
+        
+    }
+
+    动作
+    {
+        
+    }
+}
+`,
+
+    "规则：子程序" : 
 `规则("规则%1$s")
 {
     事件
@@ -10030,7 +10052,7 @@ const format = {
     "for玩家变量" : `For 玩家变量(事件玩家, A, 0, 数量(全局.A), 1);`,
     "for全局变量" : `For 全局变量(A, 0, 数量(全局.A), 1);`,
     "while" : `While(0 == 0);`,
-    "if-then-else(真?0:1)" : `真?0:1`,
+    "if-then-else" : `ifif?then:else`,
 
 };
 
@@ -10370,17 +10392,23 @@ const keyList   = Object.keys(keywordObj);
 
 
 //------------------- 完整的动作参考,补全的默认值 -------------------
+//补全用
 var referInfo = {};
 Object.assign(referInfo, constantsKeywordObj);
 Object.assign(referInfo, referInfoObj(keyList, keywordObj));
 
+//悬停用
+var hoverReferInfo = {};
+Object.assign(hoverReferInfo, constantsKeywordObj);
+Object.assign(hoverReferInfo, referInfoObj(keyList, keywordObj, "名称"));
+
 //const referInfo = referInfoObj(keyList, keywordObj);
-function referInfoObj(keyList, obj) {
+function referInfoObj(keyList, obj, type = "默认") {
     let infoObj = {};
     for (let i = 0; i < keyList.length; i++) {
         let keyName = keyList[i];
         let keyObj = obj[keyName];
-        let value = buildReferInfo(keyObj.参数, keyName);
+        let value = buildReferInfo(keyObj.参数, keyName, type);
         if (keyName in specialKeyword.修改) {
             value += "\n或 ";
             value += specialKeyword.修改[keyName];
@@ -10392,14 +10420,14 @@ function referInfoObj(keyList, obj) {
     }
     return infoObj;
 }
-function buildReferInfo(argArray, objName) {//把动作名和参数默认值拼合起来  
+function buildReferInfo(argArray, objName, type) {//把动作名和参数默认值拼合起来  
     let refer = objName;
     if (argArray.length === 0) {
         return refer;
     }
     refer += "(";
     for (let i = 0; i < argArray.length; i++) {
-        refer += argArray[i].默认;
+        refer += argArray[i][type];
         if (i < argArray.length - 1) {
             refer += ", ";
         }
@@ -10410,11 +10438,11 @@ function buildReferInfo(argArray, objName) {//把动作名和参数默认值拼�
 //------------------------------------------------
 
 //------------------- 代码补全 -------------------
-const funcCompItemList = CompItemList(keyList, keywordObj);
-const constCompItemList = CompItemList(constKeyList, constantsKeywordObj);
+const funcCompItemList = buildCompItemList(keyList, keywordObj);
+const constCompItemList = buildCompItemList(constKeyList, constantsKeywordObj);
 const compItemList = funcCompItemList.concat(constCompItemList);
 
-function CompItemList(keyList, obj) {
+function buildCompItemList(keyList, obj) {
     let list = [];
     for (let i = 0; i < keyList.length; i++) {
         let keyName = keyList[i];
@@ -10492,21 +10520,6 @@ function buildPinyinInfo(str) {
     return pinyin;
 }
 
-// function buildFormatCompItem(obj) {
-//     let list = [];
-//     let keyList = Object.keys(obj);
-//     for (let i = 0; i < keyList.length; i++) {
-//         let keyName = keyList[i];
-//         let item = new vscode.CompletionItem();
-//         item.label = keyName + "(预设)";
-//         item.insertText = obj[keyName];
-//         item.filterText = addSpaceBetweenChar(keyName) + buildPinyinInfo(keyName);
-//         item.documentation = new vscode.MarkdownString("```owl\n" + obj[keyName] + "\n```");
-//         item.kind = vscode.CompletionItemKind.Class;
-//         list.push(item);
-//     }
-//     return list;
-// }
 
 var rulesCount = 0;
 function buildFormatCompItem(obj) {
@@ -10554,22 +10567,31 @@ function buildHoverInfo(obj, keyName) {//设置悬停信息格式
     let str             = "";
 
     let _description    = obj.描述;
-    // let _reference      = "\`\`\`owl\n "  + "\n" + _description + "\n\`\`\`\n";
-    let _reference      = "\`\`\`owl\n " + referInfo[keyName] + "\n" + _description + "\n\`\`\`\n";
     let _return         = obj.返回;
+    let _reference      = "\`\`\`owl\n " + hoverReferInfo[keyName] + " ⇢ " + _return + "\n\`\`\`\n";
     let _argArray       = obj.参数;
-    let _arg            = "\n\n";
+    _reference += "> " + _description;
 
-    for (let i = 0; i < _argArray.length; i++) {
-        let argName = _argArray[i].名称;
-        let argDescription = _argArray[i].说明;
-        _arg += "\`" + argName + "\`：" + argDescription + "\n\n";
+    // if (_argArray.length > 0){
+    //     let _arg = "\n| | |\n:----: | :----\n";
+    //     for (let i = 0; i < _argArray.length; i++) {
+    //         let argName = _argArray[i].名称;
+    //         let argDescription = _argArray[i].说明;
+    //         _arg += "| " + argName + " | " + argDescription + "|\n";
+    //     }
+    //     _arg += "| | |";
+    //     str = _reference + _arg;
+    // }
+    if (_argArray.length > 0){
+        let _arg = "";
+        for (let i = 0; i < _argArray.length; i++) {
+            let argName = _argArray[i].名称;
+            let argDescription = _argArray[i].说明;
+            _arg += "\n[ " + argName + " ]> " + argDescription + "\n";
+        }
+        str = _reference + _arg;
     }
 
-    str = _reference + _arg;
-    if (_return !== "无") {
-        str += "\`返回值\`：" + _return;
-    }
     return str;
 }
 
@@ -10614,8 +10636,11 @@ function buildSigHelpInfo(obj, objName) {//返回参数指引的文本
 
     sigStr += ")";
 
-    if (obj.返回 !== "无") {
-        sigStr += "    返回值：" + obj.返回;
+    if (obj.返回 === "无") {
+        sigStr += " ⇢ 无";
+        // sigStr += "    返回值：" + obj.返回;
+    } else {
+        sigStr += " ⇢ " + obj.返回;
     }
     
     let sigInfo = new vscode.SignatureInformation(sigStr);
@@ -10666,7 +10691,6 @@ const brackets_right    = [")", "]", "}"];
 const quotes            = ["\"", "'", "`"];
 const specialState    = ["持续", "全局", "每名玩家", "-"]
 
-// var rulesCount = 0;
 
 function detectKeyword(doc, pos) {
     let isInString = false;//用于判断是否检测到了字符串
@@ -10804,7 +10828,7 @@ function searchRuleName(str) {
         name = "⚠️无效的规则名";
         return name;
     }
-    name = str.replace(/(规则\("|"\))/g, "")
+    name = str.replace(/(^(禁用 )|规则\("|"\))/g, "");
     if (name.length === 0) {
         name = "❔未命名规则";
     }
@@ -10838,23 +10862,52 @@ function searchEventType(document, lineIndex, forLimit) {
     return type;
 }
 
-// function buildFormatCompItem(obj) {
-//     let list = [];
-//     let keyList = Object.keys(obj);
-//     for (let i = 0; i < keyList.length; i++) {
-//         let keyName = keyList[i];
-//         let text = obj[keyName].replace("%1$s", rulesCount + 1);
+//TODO 查找变量名称
+function searchVariableName(document, lineIndex=0, forLimit=300) {
+    let list = [];
+    let startRecord = false;
+    let nameRegx = /(?=.*[a-zA-Z])([\t\d]*: )([\w]*)/;
+    let nameClassRegx = /(变量|子程序)/;
+    let nameClass = "";
+    let nameObjectRegx = /(全局|玩家)/;
+    let nameObject = "";
+    let tip = "";
+    let recordNum = 0;
+    let i = lineIndex;
+    for (; i < lineIndex + forLimit; i++) {
+        let line = document.lineAt(i);
+        if (nameClassRegx.test(line.text)) { // 是否进入记录模式
+            nameClass = nameClassRegx.exec(line.text)[0];
+            startRecord = true;
+            recordNum += 1;
+        }
+        if (startRecord && line.text.startsWith("}")) { // 退出记录模式
+            startRecord = false;
+            tip = "";
+            if (recordNum >= 2) {
+                break;
+            }
+        }
+        if (startRecord) {
+            if (nameClass === "变量" && nameObjectRegx.test(line.text)){
+                nameObject = nameObjectRegx.exec(line.text)[0];
+                tip = nameObject + nameClass;
+            }
+            else if (nameClass === "子程序") {
+                tip = nameClass;
+            }
+            let name = line.text.replace(nameRegx, "$2");
+            let item = new vscode.CompletionItem();
+            item.label = name + ` (${tip})`;
+            item.insertText = name;
+            item.filterText = name;
+            item.kind = vscode.CompletionItemKind.Variable;
+            list.push(item);
+        }
+    }
+    return list;
+}
 
-//         let item = new vscode.CompletionItem();
-//         item.label = keyName + "(预设)";
-//         item.insertText = text;
-//         item.filterText = owl.addSpaceBetweenChar(keyName) + owl.buildPinyinInfo(keyName);
-//         item.documentation = new vscode.MarkdownString("```owl\n" + text + "\n```");
-//         item.kind = vscode.CompletionItemKind.Class;
-//         list.push(item);
-//     }
-//     return list;
-// }
 
 function searchCompleteKeyword(doc, pos) {
     let keyword = "🍀";
@@ -10949,8 +11002,9 @@ function activate(context) {
                 return newList;
             }
 
+            let variableName = searchVariableName(document);
             let formatCompItemList = buildFormatCompItem(format);
-            let list = compItemList.concat(formatCompItemList);
+            let list = compItemList.concat(formatCompItemList, variableName);
             return list;
         }
         

@@ -4,7 +4,7 @@
 	"icon": "images/owl-CN.png",
 	"description": "守望先锋地图工坊的编程语言辅助插件",
 	"publisher": "CoolP",
-	"version": "0.0.18",
+	"version": "0.0.19",
 	"engines": {
 		"vscode": "^1.92.0"
 	},
@@ -28,13 +28,13 @@
 			{
 				"id": "owl",
 				"aliases": [
-					"Overwatch Workshop Language CN",
+					"owl-CN",
 					"owl"
 				],
 				"extensions": [
 					".owl"
 				],
-				"configuration": "./language-configuration.json"
+				"configuration": "./client/language-configuration.json"
 			}
 		],
 		"grammars": [
