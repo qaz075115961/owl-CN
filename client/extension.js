@@ -10550,7 +10550,6 @@ for (let i = 0; i < constKeyList.length; i++) {
 
 var hoverInfo = {};
 Object.assign(hoverInfo, constHoverInfo);
-
 Object.assign(hoverInfo, hoverObj(keyList, keywordObj));
 
 //const hoverInfo = hoverObj(keyList, keywordObj);
@@ -10588,7 +10587,7 @@ function buildHoverInfo(obj, keyName) {//设置悬停信息格式
         for (let i = 0; i < _argArray.length; i++) {
             let argName = _argArray[i].名称;
             let argDescription = _argArray[i].说明;
-            _arg += "\n[ " + argName + " ]> " + argDescription + "\n";
+            _arg += "\n\n[ " + argName + " ]> " + argDescription + "\n";
         }
         str = _reference + _arg;
     }
@@ -10753,7 +10752,7 @@ function detectKeyword(doc, pos) {
         return err;
     }
 
-    return [funcName, currentArgIndex, nestLayers];
+    return [funcName, currentArgIndex];
 }
 
 function argRemind(doc, pos) {
@@ -10790,31 +10789,20 @@ function argRemind(doc, pos) {
     return newList;
 }
 
-function builConstKeywordInfo(doc, pos, keyword) {
+function buildConstKeywordInfo(doc, pos, keyword) {
     let result = detectKeyword(doc, pos);
     let constKeywordInfo = "";
-    if (typeof result === "object") {
-        let funcName = result[0];
-        let currentArgIndex = result[1];
-        let type = keywordObj[funcName].参数[currentArgIndex].类型;
-        if (type === "0000000") {
-            pp("悬停信息：类型为占位符");
-            return "";
-        }
-        let otherOptionObj = constants[type];
-        let otherOptionList = Object.keys(otherOptionObj);
-        constKeywordInfo = "此处还可以选择：\n\n";
-        for (let i = 0; i < otherOptionList.length; i++) {
-            if (otherOptionList[i] !== keyword) {
-                constKeywordInfo += "`" + otherOptionList[i] + "`";
-                let description = otherOptionObj[otherOptionList[i]];
-                if (description !== "") {
-                    constKeywordInfo += ": " + otherOptionObj[otherOptionList[i]];
-                }
-                constKeywordInfo += "\n\n";
-            }
-        }
+    if (typeof result === "string") {
+        return constKeywordInfo;
     }
+    let funcName = result[0];
+    let currentArgIndex = result[1];
+    let type = keywordObj[funcName].参数[currentArgIndex].类型;
+    if (type === "0000000") {
+        pp("悬停信息：类型为占位符");
+        return constKeywordInfo;
+    }
+    constKeywordInfo = buildOtherOptions(type, keyword);
     pp("悬停信息：" + result);
     return constKeywordInfo;
 }
@@ -10837,24 +10825,16 @@ function searchRuleName(str) {
 }
 
 function searchEventType(document, lineIndex, forLimit) {
-    let type = "⚠️找不到事件类型，或空行太多";
-    let i = lineIndex;
-    for (; i < lineIndex + forLimit; i++) {
-        if (document.lineAt(i).text.indexOf(";") !== -1) {
-            break;
-        }
+    let type = "⚠️找不到事件类型或空行太多";
+    let _range = new vscode.Range(lineIndex, 0, lineIndex+forLimit, 0);
+    let text = document.getText(_range);
+    let result = text.match(/([\u4e00-\u9fa5 -]+);/g);
+    if (result === null) {
+        return type;
     }
-    let str = document.lineAt(i).text;
-
-    let j = 0;
-    for (; j < str.length; j++) {
-        if (str.slice(j, j+1) !== "\t") {
-            break;
-        }
-    }
-    str = str.slice(j, str.length - 1);
-    if (str in constants.事件 === false) {
-        type = "⚠️无效的事件类型";
+    let str = result[0].replace(";", "");
+    if (!Object.keys(constants.事件).includes(str)) {
+        type = "⚠️事件类型无效";
         return type;
     }
     if (str.length > 0) {
@@ -10915,6 +10895,7 @@ function searchPresetVariableName(document, lineIndex=0, forLimit=300) {
 function searchUndefineVariableName(document) {
     let list = [];
     let nameList = [];
+    let undefineVariableRecord = [];
     let nameRegx = /(?<=[.(])(?=.*[a-zA-Z])([\w]+)/gi;
     let _range = new vscode.Range(0, 0, document.lineCount+1, 0);
     let text = document.getText(_range);
@@ -10922,7 +10903,9 @@ function searchUndefineVariableName(document) {
     nameList = nameList.concat(text.match(nameRegx));
     for (let i = 0; i < nameList.length; i++) {
         let name = nameList[i];
-        if (presetVariableNameRecord.includes(name)) {
+        if (presetVariableNameRecord.includes(name)
+            || undefineVariableRecord.includes(name)
+        ) {
             continue;
         }
         let item = new vscode.CompletionItem();
@@ -10931,40 +10914,44 @@ function searchUndefineVariableName(document) {
         item.filterText = name;
         item.kind = vscode.CompletionItemKind.Variable;
         list.push(item);
+        undefineVariableRecord.push(name);
     }
     return list;
 }
 
-function searchCompleteKeyword(doc, pos) {
-    let keyword = "🍀";
-    for (let i = 0; i < 9; i++) {
-        let char = doc.getText(new vscode.Range(pos.translate(0, i), pos.translate(0, i+1)));
-        if ("全局".indexOf(char) !== -1) {
-            keyword = "持续 - 全局";
-            break;
-        }
-        else if ("每名玩家".indexOf(char) !== -1) {
-            keyword = "持续 - 每名玩家";
-            break;
-        }
+function searchCompleteKeyword(document, position) {
+    let _range = new vscode.Range(position.line, 0, position.line, position.character+10);
+    let text = document.getText(_range);
+    let keyword = "";
+    if (text.includes("全局")) {
+        keyword = "持续 - 全局";
+    }
+    else if (text.includes("每名玩家")) {
+        keyword = "持续 - 每名玩家";
     }
     return keyword;
 }
 
 function builSpecialKeywordInfo(keyword) {
+    let constKeywordInfo = buildOtherOptions("事件", keyword);
+    return constKeywordInfo;
+}
+
+function buildOtherOptions(type, keyword) {
     let constKeywordInfo = "";
-    let otherOptionObj = constants["事件"];
+    let otherOptionObj = constants[type];
     let otherOptionList = Object.keys(otherOptionObj);
     constKeywordInfo = "此处还可以选择：\n\n";
     for (let i = 0; i < otherOptionList.length; i++) {
-        if (otherOptionList[i] !== keyword) {
-            constKeywordInfo += "`" + otherOptionList[i] + "`";
-            let description = otherOptionObj[otherOptionList[i]];
-            if (description !== "") {
-                constKeywordInfo += ": " + otherOptionObj[otherOptionList[i]];
-            }
-            constKeywordInfo += "\n\n";
+        if (otherOptionList[i] === keyword) {
+            continue;
         }
+        constKeywordInfo += "`" + otherOptionList[i] + "`";
+        let description = otherOptionObj[otherOptionList[i]];
+        if (description !== "") {
+            constKeywordInfo += ": " + otherOptionObj[otherOptionList[i]];
+        }
+        constKeywordInfo += "\n\n";
     }
     return constKeywordInfo;
 }
@@ -10978,14 +10965,13 @@ function activate(context) {
             let constKeywordInfo = "";
             let keyword = document.getText(document.getWordRangeAtPosition(position));
             let char = document.getText(new vscode.Range(position.translate(0, 1), position.translate(0, 4)));
-            if (specialState.indexOf(keyword) !== -1 && char.indexOf(".") === -1) {
+            if (specialState.includes(keyword) && !char.includes(".")) {
                 keyword = searchCompleteKeyword(document, position);
-                constKeywordInfo = builSpecialKeywordInfo(keyword);
+                constKeywordInfo = buildOtherOptions("事件", keyword);
             }
             else if (keyword in constantsKeywordObj) {
-                constKeywordInfo = builConstKeywordInfo(document, position, keyword);
+                constKeywordInfo = buildConstKeywordInfo(document, position, keyword);
             }
-
             if (keyword in hoverInfo) {
                 pp("Hover: " + keyword);
                 let string = hoverInfo[keyword] + constKeywordInfo;
@@ -11001,13 +10987,11 @@ function activate(context) {
             if (context.triggerCharacter === ')') {
                 return;
             }
-
             let result = detectKeyword(document, position);
             if (typeof result === "string") {
                 pp("参数指引：" + result);
                 return;
             }
-
             let funcName = result[0];
             let currentArgIndex = result[1];
 
@@ -11027,12 +11011,9 @@ function activate(context) {
                 let newList = argRemind(document, position);
                 return newList;
             }
-
-            //TODO 全文变量名称
             let presetVariableName = searchPresetVariableName(document);
             let undefineVariableName = searchUndefineVariableName(document);
             let formatCompItemList = buildFormatCompItem(format);
-            // let list = compItemList.concat(formatCompItemList, presetVariableName);
             let list = compItemList.concat(formatCompItemList, presetVariableName, undefineVariableName);
             return list;
         }
@@ -11148,7 +11129,6 @@ function activate(context) {
                         }
                     }
 /* 
-
                     else if (line.text.startsWith("	事件")) {
                         let symbol = new vscode.DocumentSymbol(
                             searchEventType(document, i, 3),
