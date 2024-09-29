@@ -10932,10 +10932,10 @@ function searchCompleteKeyword(document, position) {
     return keyword;
 }
 
-function builSpecialKeywordInfo(keyword) {
-    let constKeywordInfo = buildOtherOptions("事件", keyword);
-    return constKeywordInfo;
-}
+// function builSpecialKeywordInfo(keyword) {
+//     let constKeywordInfo = buildOtherOptions("事件", keyword);
+//     return constKeywordInfo;
+// }
 
 function buildOtherOptions(type, keyword) {
     let constKeywordInfo = "";
@@ -10958,6 +10958,43 @@ function buildOtherOptions(type, keyword) {
 
 function activate(context) {
     vscode.window.showInformationMessage('owl插件已激活!');
+
+    //----------------------------------------  调色盘  ----------------------------------------
+    vscode.languages.registerColorProvider('owl', {
+        provideColorPresentations(color, context, token) {
+            try {
+                let colorStr = "自定义颜色(" +
+                    Math.floor(color.red * 255) + ", " + 
+                    Math.floor(color.green * 255) + ", " + 
+                    Math.floor(color.blue * 255) + ", " + 
+                    Math.floor(color.alpha * 255) + ")";
+                return [new vscode.ColorPresentation(colorStr)];
+            } catch (error) {console.log(error);}
+        },
+        provideDocumentColors(document, token){
+            try {
+                let doc = document.getText();
+                let colorRegex = /自定义颜色\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/g;
+                let colorArr = [];
+                let result;
+                while (result = colorRegex.exec(doc)) {
+                    let colorRange = new vscode.Range(
+                        document.positionAt(result.index),
+                        document.positionAt(result.index + result[0].length)
+                    );
+                    let colorValue = new vscode.Color(
+                        parseInt(result[1]) / 255,
+                        parseInt(result[2]) / 255,
+                        parseInt(result[3]) / 255,
+                        parseInt(result[4]) / 255
+                    );
+                    let colorInfo = new vscode.ColorInformation(colorRange, colorValue);
+                    colorArr.push(colorInfo);
+                }
+                return colorArr;
+            } catch (error) {console.log(error);}
+        }
+    });
 
     //---------------------------------------- 悬停信息 ----------------------------------------
     vscode.languages.registerHoverProvider('owl', {
